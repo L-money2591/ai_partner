@@ -97,8 +97,15 @@ for message in st.session_state.messages:
     #     st.chat_message("assistant").write(message["content"])
 
 
+def get_api_key():
+    try:
+        return st.secrets["DEEPSEEK_API_KEY"]
+    except Exception:
+        pass
+    return os.environ.get('DEEPSEEK_API_KEY')
+
 client = OpenAI(
-    api_key=os.environ.get('DEEPSEEK_API_KEY'),
+    api_key=get_api_key(),
     base_url="https://api.deepseek.com")
 
 #左侧侧边栏
